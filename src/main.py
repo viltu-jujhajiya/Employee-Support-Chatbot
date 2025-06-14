@@ -1,18 +1,13 @@
-from generate_prompt import doc2str, prompt
-from large_language_model import load_llm
+from src.generate_prompt import doc2str, prompt
+from src.large_language_model import load_llm
 import os
 import yaml
 from pathlib import Path
 import torch
-from langchain.chains import retrieval_qa
 from langchain.schema.runnable import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-
-
-project_path = Path(__file__).resolve().parent.parent
-os.chdir(project_path)
 
 with open("params.yaml", "r", encoding="utf-8") as file:
     params = yaml.safe_load(file)
@@ -40,11 +35,13 @@ class escb():
             search_kwargs={"k": 3, "fetch_k": 10}
         )
 
+        self.prompt = prompt
+
         '''Load LLM'''
         self.llm = load_llm(params)
 
         '''Create Langchain '''
-        rag_chain = (
+        self.rag_chain = (
             {
                 "context": self.retriever | doc2str,
                 "question": RunnablePassthrough()
