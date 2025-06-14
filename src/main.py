@@ -31,29 +31,29 @@ def load_vectorstore():
     vectorstore = FAISS.load_local(vectordb_path, embedding_model, allow_dangerous_deserialization=True)
     return vectorstore
 
-def main():
-    '''Load Vector Store & set-up Retriever'''
-    vectorstore = load_vectorstore()
-    retriever = vectorstore.as_retriever(
-        search_type="mmr",
-        search_kwargs={"k": 3, "fetch_k": 10}
-    )
-    
-    '''Load LLM'''
-    llm = load_llm(params)
-    
-    '''Create Langchain '''
-    rag_chain = (
-        {
-            "context": retriever | doc2str,
-            "question": RunnablePassthrough()
-        }
-        | prompt
-        | llm
-        | StrOutputParser()
-    )
-    
-    print(rag_chain.invoke("How many Holidays do we get?"))
+class escb():
+    def __init__(self):
+        '''Load Vector Store & set-up Retriever'''
+        self.vectorstore = load_vectorstore()
+        self.retriever = self.vectorstore.as_retriever(
+            search_type="mmr",
+            search_kwargs={"k": 3, "fetch_k": 10}
+        )
 
-if __name__ == "__main__":
-    main()
+        '''Load LLM'''
+        self.llm = load_llm(params)
+
+        '''Create Langchain '''
+        rag_chain = (
+            {
+                "context": self.retriever | doc2str,
+                "question": RunnablePassthrough()
+            }
+            | prompt
+            | self.llm
+            | StrOutputParser()
+        )
+
+    def main(self, query):
+        response = self.rag_chain.invoke(query)
+        return response

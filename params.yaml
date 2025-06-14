@@ -6,8 +6,9 @@ data:
   
 
 model:
-  llm_model: TinyLlama/TinyLlama-1.1B-Chat
-  temperature: 0.3
-  top_k: 50
-  top_p: 0.95
+  llm_model: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+  temperature: 0.1
+  top_k: 1
+  top_p: 0.99
   repetition_penalty: 1.1
+  do_sample: False

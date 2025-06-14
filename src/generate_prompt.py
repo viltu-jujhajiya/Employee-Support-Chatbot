@@ -4,12 +4,12 @@ def doc2str(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 
-template = """Answer the question based on the following context:
+template = """You are an AI assistant. Using ONLY the following context, answer the user's question as briefly and accurately as possible.
 {context}
 
 Question: {question}
 
-Answer: """
+Answer:"""
 
 
 prompt = ChatPromptTemplate.from_template(template)
