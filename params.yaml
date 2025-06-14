@@ -1,0 +1,13 @@
+data:
+  datapath: data/
+  vectordb_dirpath: vector_db/
+  vector_db_name: vectordb_employee_qa
+  embedding_model: "BAAI/bge-small-en-v1.5"
+  
+
+model:
+  llm_model: TinyLlama/TinyLlama-1.1B-Chat
+  temperature: 0.3
+  top_k: 50
+  top_p: 0.95
+  repetition_penalty: 1.1
