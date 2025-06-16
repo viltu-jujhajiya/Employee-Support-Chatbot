@@ -1,28 +1,40 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import uvicorn
-import os
-from pathlib import Path
-
-project_path = Path(__file__).resolve().parent
-os.chdir(project_path)
-
+import streamlit as st
 from src.main import escb
 
+# This must be the FIRST Streamlit command
+st.set_page_config(page_title="Employee Support Chatbot", layout="centered")
 
+@st.cache_resource
+def load_chatbot():
+    return escb()
 
+chatbot = load_chatbot()
 
-app = FastAPI()
+st.title("💼 Employee Support Chatbot")
 
-obj = escb()
+# Initialize chat history
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
-class QueryInput(BaseModel):
-    query: str
+# Display chat history (scrolls up as you chat)
+for q, a in st.session_state.chat_history:
+    with st.chat_message("user"):
+        st.markdown(q)
+    with st.chat_message("assistant"):
+        st.markdown(a)
 
-@app.post("/query")
-async def generate_response(payload: QueryInput):
-    response = obj.main(payload.query)
-    return {"response": response}
+# Input box at the bottom
+user_input = st.chat_input("Ask a question")
 
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=3456)
+if user_input:
+    # Display user message
+    st.chat_message("user").markdown(user_input)
+
+    with st.spinner("Thinking..."):
+        response = chatbot.main(user_input)
+
+    # Display bot response
+    st.chat_message("assistant").markdown(response)
+
+    # Save to history
+    st.session_state.chat_history.append((user_input, response))

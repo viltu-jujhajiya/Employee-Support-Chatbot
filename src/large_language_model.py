@@ -1,6 +1,5 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import torch
-from langchain_community.llms import HuggingFacePipeline
 from langchain_core.language_models import LLM
 from pydantic import Field
 from typing import List, Any
