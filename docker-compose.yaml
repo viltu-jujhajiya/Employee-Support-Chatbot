@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: employee-support-chatbot-app
+    ports:
+      - "6789:6789"
+    volumes:
+      - .:/app
+    command: streamlit run app.py --server.port=6789 --server.address=0.0.0.0
