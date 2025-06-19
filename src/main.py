@@ -16,7 +16,7 @@ embedding_model_name = params["data"]["embedding_model"]
 vectordb_path = Path(os.path.join(params["data"]["vectordb_dirpath"], params["data"]["vector_db_name"]))
 
 def load_vectorstore():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cpu" # "cuda" if torch.cuda.is_available() else "cpu"
     embedding_model = HuggingFaceBgeEmbeddings(
         model_name = embedding_model_name,
         model_kwargs = {"device": device},

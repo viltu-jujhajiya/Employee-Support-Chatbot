@@ -23,7 +23,7 @@ def load_llm(params):
 
     model = AutoModelForCausalLM.from_pretrained(
         llm_model_name,
-        device_map="auto",
+        device_map="cpu", # "auto",
         torch_dtype=torch.float16,
         trust_remote_code=True,
     )
