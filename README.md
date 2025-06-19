@@ -8,4 +8,4 @@ A publicly available Employee Handbook was used to generate embeddings and creat
 
 ## Methodology
 ### System Pipeline
-[!Image](images\pipeline.jpg)
+![Image](images\pipeline.jpg)
