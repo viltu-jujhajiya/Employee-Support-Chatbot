@@ -6,7 +6,7 @@ data:
   
 
 model:
-  llm_model: TinyLlama/TinyLlama-1.1B-Chat-v1.0 #openchat/openchat-3.5-0106 #microsoft/phi-2
+  llm_model: openchat/openchat-3.5-0106 #TinyLlama/TinyLlama-1.1B-Chat-v1.0 #microsoft/phi-2
   temperature: 0.1
   top_k: 1
   top_p: 0.99
